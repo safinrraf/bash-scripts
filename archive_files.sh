@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#crontab 
+#0 0 1 * * /programm/folder/archive_files.sh 1>> /tmp/run-archive_files.log 2>&1
+
 PROGRAM=${0##*/} # the version
 VERSION="$PROGRAM v1.0.0"
 LOG_TIME_FORMAT="%F %T"
