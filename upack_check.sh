@@ -22,6 +22,11 @@ function handle_error {
     echo "$(date +"$LOG_TIME_FORMAT") Caught an error with exit status $?" >&2
 }
 
+function loggging() {
+    local message=$1
+    echo "$(date +"$LOG_TIME_FORMAT") $message"
+}
+
 # Set the error handler
 trap 'handle_error; exit 1' ERR
 
@@ -34,15 +39,15 @@ TEMP_DIR=$(mktemp -d)
 
 ### Start the script
 
-echo "$(date +"$LOG_TIME_FORMAT") Start $VERSION"
-echo "$(date +"$LOG_TIME_FORMAT") BASE_DIR $BASE_DIR"
-echo "$(date +"$LOG_TIME_FORMAT") TEMP_DIR $TEMP_DIR"
-echo "$(date +"$LOG_TIME_FORMAT") DEST_DIR $DEST_DIR"
-echo "$(date +"$LOG_TIME_FORMAT") CURRENT_DATE $CURRENT_DATE"
+loggging "Start $VERSION"
+loggging "BASE_DIR $BASE_DIR"
+loggging "TEMP_DIR $TEMP_DIR"
+loggging "DEST_DIR $DEST_DIR"
+loggging "CURRENT_DATE $CURRENT_DATE"
 
 # Check if directory exists
 if [ -d "$ARCHIVE_DIR" ]; then
-    echo "$(date +"$LOG_TIME_FORMAT") ARCHIVE_DIR $ARCHIVE_DIR"
+    loggging "ARCHIVE_DIR $ARCHIVE_DIR"
 else
     mkdir $ARCHIVE_DIR
 fi
@@ -56,22 +61,22 @@ mv $TEMP_DIR/*.csv $DEST_DIR/$CSV_FILE_NAME
 
 SHA256_HASH=$(openssl dgst -sha256 $DEST_DIR/$CSV_FILE_NAME | cut -d' ' -f2 | tr '[:lower:]' '[:upper:]')
 
-echo "|"
-echo "|"
-echo "$(date +"$LOG_TIME_FORMAT") INPUT SHA256_HASH $INPUT_SHA256_UPPER"
-echo "$(date +"$LOG_TIME_FORMAT") CALC  SHA256_HASH $SHA256_HASH"
-echo "|"
-echo "|"
+loggging "|"
+loggging "|"
+loggging "INPUT SHA256_HASH $INPUT_SHA256_UPPER"
+loggging "CALC  SHA256_HASH $SHA256_HASH"
+loggging "|"
+loggging "|"
 
 rm -f $TEMP_DIR/*.zip
 
 # Compare the strings
 if [ "$SHA256_HASH" == "$INPUT_SHA256_UPPER" ]; then
-    echo "$(date +"$LOG_TIME_FORMAT") SHA256_HASH OK"
-    echo "|"
+    loggging "SHA256_HASH OK"
+    loggging "|"
 else
-    echo "$(date +"$LOG_TIME_FORMAT") SHA256_HASH IS NOT CORRECT"
+    loggging "SHA256_HASH IS NOT CORRECT"
     exit 1
 fi
 
-echo "$(date +"$LOG_TIME_FORMAT") End $VERSION"
+loggging "End $VERSION"
