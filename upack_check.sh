@@ -11,6 +11,11 @@ DEST_DIR=$BASE_DIR/DEST
 ARCHIVE_DIR=$BASE_DIR/ARCHIVE/$CURRENT_DATE
 CSV_FILE_NAME="FILE.csv"
 
+# ANSI color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 # Check for the correct number of arguments
 if [ "$#" -ne 3 ]; then
     echo "Usage: $0 <input_zip_archive (*.zip)> <ZIP password> <SHA256>"
@@ -25,6 +30,11 @@ function handle_error {
 function loggging() {
     local message=$1
     echo "$(date +"$LOG_TIME_FORMAT") $message"
+}
+
+function eeloggging() {
+    local message=$1
+    echo -e "$(date +"$LOG_TIME_FORMAT") ${RED}$message${NC}"
 }
 
 # Set the error handler
@@ -75,7 +85,7 @@ if [ "$SHA256_HASH" == "$INPUT_SHA256_UPPER" ]; then
     loggging "SHA256_HASH OK"
     loggging "|"
 else
-    loggging "SHA256_HASH IS NOT CORRECT"
+    eeloggging "SHA256_HASH IS NOT CORRECT"
     exit 1
 fi
 
