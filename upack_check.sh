@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROGRAM=${0##*/} # the version
-VERSION="$PROGRAM v1.0.1"
+VERSION="$PROGRAM v1.0.0"
 LOG_TIME_FORMAT="%F %T"
 
 BASE_DIR=~/programm/data
@@ -15,8 +15,6 @@ CSV_FILE_NAME="FILE.csv"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
-
-#bash --version
 
 # Check for the correct number of arguments
 if [ "$#" -ne 3 ]; then
@@ -97,7 +95,7 @@ rm -f $TEMP_DIR/*.zip
 # Compare the strings
 if [ "$SHA256_HASH" == "$INPUT_SHA256_UPPER" ]; then
     ggloggging "SHA256_HASH OK"
-    ggloggging "|"
+    loggging "|"
 else
     eeloggging "SHA256_HASH IS NOT CORRECT"
     exit 1
