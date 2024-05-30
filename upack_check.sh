@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROGRAM=${0##*/} # the version
-VERSION="$PROGRAM v1.0.0"
+VERSION="$PROGRAM v1.0.1"
 LOG_TIME_FORMAT="%F %T"
 
 BASE_DIR=~/programm/data
