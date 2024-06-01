@@ -24,7 +24,7 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
-# Check if directory exists
+# Check if directory  exists
 if [ ! -d "$ARCHIVE_DIR" ]; then
     mkdir $ARCHIVE_DIR
 fi
