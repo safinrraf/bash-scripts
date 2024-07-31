@@ -125,6 +125,41 @@ else
     exit 1
 fi
 
+loggging "|"
+loggging "|"
+# Checking the format
+loggging "Checking the format of the input CSV"
+loggging "|"
+loggging "|"
+
+first_line=true
+line_number=0
+
+while IFS= read -r line
+do
+    ((line_number++))
+
+    if $first_line; then
+        first_line=false
+        continue
+    fi
+
+    short_line="${line:0:13}"
+
+    # Check if the line matches the pattern: exactly 9 digits
+    if [[ $short_line =~ ^[0-9]{10,13}$ ]]; then
+        ggloggging "Line $line_number: Valid: $short_line"
+    else
+        eeloggging "Line $line_number: Invalid: $short_line"
+        clear_tmp
+        eeloggging "EXIT"
+        exit 1
+    fi
+done < "$TEMP_DIR/$CSV_FILE_NAME"
+
+loggging "|"
+loggging "|"
+
 #Archiving previous files
 #find $DEST_DIR -type f -name "*.csv" | tar -czvf $ARCHIVE_DIR/CSV_PREV_$ARCHIVE_FILE_TIMESTAMP.tar.gz --remove-files -T -
 loggging "Archived previous CSV file"
