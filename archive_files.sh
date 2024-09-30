@@ -24,7 +24,7 @@ echo "$(date +"$LOG_TIME_FORMAT") Start archiving Merge Txns "
 #find $MERGE_TXNS_DIR -type f -name "mergetxng*$PREV_MONTH*.log" | tar -czvf $ARCHIVE_DIR/mergetxns_archive_$PREV_MONTH.tar.gz --remove-files -I -
 
 echo "$(date +"$LOG_TIME_FORMAT") Start archiving input trxng"
-#find $IN DIR -type f -name "aml*$PREV_MONTH*,csv.save" | tar -czvf $ARCHIVE DIR/input trns archive_$PREV MONTH.tar.gz --remove-files -T -
+#find $IN DIR -type f -name "aml*$PREV_MONTH*,csv.save" | tar -czvf $ARCHIVE_DIR/input trns_archive_$PREV_MONTH.tar.gz --remove-files -T -
 
 echo "$(date +"$LOG_TIME_FORMAT") Start archiving archives"
 
